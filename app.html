@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manat Şəkilləri Hesablayıcı</title>
+</head>
+<body>
+    <h2>Məbləği daxil edin:</h2>
+    <input type="number" id="məbləqInput">
+    <button onclick="hesabla()">Hesabla</button>
+
+    <h2 id="şəkillərBaşlıq">Manat Şəkilləri:</h2>
+    <ul id="şəkillərListesi"></ul>
+
+    <script>
+        function hesabla() {
+            const məbləq = parseInt(document.getElementById("məbləqInput").value);
+            const manatBanknotları = [200, 100, 50, 20, 10, 5, 1];
+            const şəkillər = {
+                200: "https://upload.wikimedia.org/wikipedia/commons/9/9c/200_Azerbaijani_manat_in_2018_Obverse.jpg",
+                100: "https://upload.wikimedia.org/wikipedia/commons/5/5f/100_manat_rev.jpg",
+                50: "https://upload.wikimedia.org/wikipedia/commons/a/a0/50-manat_front.jpg",
+                20: "https://upload.wikimedia.org/wikipedia/commons/6/6a/20_manat_obv.jpg",
+                10: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/10_manat_obv.jpg/250px-10_manat_obv.jpg",
+                5: "https://upload.wikimedia.org/wikipedia/commons/1/15/5_manat_rev.jpg",
+                1: "https://upload.wikimedia.org/wikipedia/commons/6/6e/1_manat_-_2020_-_obv.jpg"
+            };
+
+            const şəkillərListesi = document.getElementById("şəkillərListesi");
+            şəkillərListesi.innerHTML = "";
+            for (const banknot in şəkillər) {
+                if (məbləq >= banknot) {
+                    const n = Math.floor(məbləq / banknot);
+                    const imageURL = şəkillər[banknot];
+                    for (let i = 0; i < n; i++) {
+                        const listItem = document.createElement("li");
+                        const imageElement = document.createElement("img");
+                        imageElement.src = imageURL;
+                        imageElement.alt = `${banknot} AZN`;
+                        listItem.appendChild(imageElement);
+                        şəkillərListesi.appendChild(listItem);
+                    }
+                    məbləq %= banknot;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
